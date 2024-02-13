@@ -84,3 +84,15 @@ img {
 	width: 100px;
 	height: auto;
 }
+
+.scoreArea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 4rem;
+	gap: 1rem;
+	font-family: "Protest Strike", "Roboto", sans-serif;
+	color: white;
+	font-size: 2rem;
+}

@@ -1,34 +1,3 @@
-// Algorithm for Rock, Paper, Scissors
-//
-// Get user input and store it in a variable
-// Make sure to turn the user's input into case insensitive form
-// Make sure the user enters either Rock, Paper or Scissors, otherwise display an error and ask for input again
-// Make the computer randomly choose either Rock, Paper or Scissors and store it in a variable
-// Compare the two variables and display the winner
-// Increment the score for either players and restart the game
-
-/*
-// Function that will get the player's selection at the start of every round
-function getPlayerSelection() {
-	// Get user input and store it in a variable
-	let playerSelection = prompt("Rock, Paper or Scissors?");
-
-	// Make sure to turn the user's input into case insensitive form
-	playerSelection = playerSelection.toLowerCase();
-
-	// Make sure the user enters either Rock, Paper or Scissors, otherwise display an error
-	if (
-		playerSelection == "rock" ||
-		playerSelection == "paper" ||
-		playerSelection == "scissors"
-	) {
-		return playerSelection;
-	} else {
-		console.log("Error! Please enter either Rock, Paper or Scissors!");
-	}
-}
-
-// Function that will generate a random number between 1, 2 and 3
 function generateNumber(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -46,124 +15,156 @@ function getComputerChoice() {
 	}
 }
 
+const rockBtn = document.querySelector("#rock");
+rockBtn.addEventListener("click", () => {
+	playGame("rock");
+});
+
+const paperBtn = document.querySelector("#paper");
+paperBtn.addEventListener("click", () => {
+	playGame("paper");
+});
+
+const scissorsBtn = document.querySelector("#scissors");
+scissorsBtn.addEventListener("click", () => {
+	playGame("scissors");
+});
+
+const round = document.querySelector("#round");
+const pScore = document.querySelector("#pScore");
+const cScore = document.querySelector("#cScore");
+const whoWins = document.querySelector("#whoWins");
+
+let computerScore = 0;
+let playerScore = 0;
+
 // Game logic, self explanitory
-function playGame() {
-	let computerScore = 0;
-	let playerScore = 0;
-	let keepGoing = true;
+function playGame(playerSelection) {
+	let player = playerSelection;
+	let computer = getComputerChoice();
 
-	while (keepGoing) {
-		let player = getPlayerSelection();
-		let computer = getComputerChoice();
-
-		if (player == "rock" && computer == "scissors") {
-			console.log("Player wins!");
-			playerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "rock" && computer == "paper") {
-			console.log("Computer wins!");
-			computerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "rock" && computer == "rock") {
-			console.log("Tie!");
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "paper" && computer == "scissors") {
-			console.log("Computer wins!");
-			computerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "paper" && computer == "rock") {
-			console.log("Player wins!");
-			playerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "paper" && computer == "paper") {
-			console.log("Tie");
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "scissors" && computer == "paper") {
-			console.log("Player wins!");
-			playerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "scissors" && computer == "rock") {
-			console.log("Computer wins!");
-			computerScore++;
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
-		} else if (player == "scissors" && computer == "scissors") {
-			console.log("Tie");
-			console.log("Player Score is: " + playerScore);
-			console.log("Computer Score is: " + computerScore);
-			if (playerScore == 3) {
-				keepGoing = false;
-				console.log("Player won the game! First to three!");
-			} else if (computerScore == 3) {
-				keepGoing = false;
-				console.log("Computer won the game! First to three!");
-			}
+	if (player == "rock" && computer == "scissors") {
+		playerScore++;
+		round.innerText = `You won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "rock" && computer == "paper") {
+		computerScore++;
+		round.innerText = `Computer won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "rock" && computer == "rock") {
+		round.innerText = `Tie!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "paper" && computer == "scissors") {
+		computerScore++;
+		round.innerText = `Computer won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "paper" && computer == "rock") {
+		playerScore++;
+		round.innerText = `You won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "paper" && computer == "paper") {
+		round.innerText = `Tie!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "scissors" && computer == "paper") {
+		playerScore++;
+		round.innerText = `You won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "scissors" && computer == "rock") {
+		computerScore++;
+		round.innerText = `Computer won this round!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		}
+	} else if (player == "scissors" && computer == "scissors") {
+		round.innerText = `Tie!`;
+		pScore.innerText = `Player score is ${playerScore} `;
+		cScore.innerText = `Computer score is ${computerScore}`;
+		if (playerScore == 5) {
+			whoWins.innerText = `Player won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
+		} else if (computerScore == 5) {
+			whoWins.innerText = `Computer won the game! First to five! Resetting game`;
+			computerScore = 0;
+			playerScore = 0;
 		}
 	}
 }
-
-// The start button, lol
-playGame();
